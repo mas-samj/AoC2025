@@ -4,12 +4,29 @@
 
 using namespace std;
 
+int posCalc(int result, bool dir)
+{
+    if (dir == false) {  //right
+        if ((result - 100) > 99)
+            return posCalc(result - 100, false);
+        else
+            return result - 100;
+    }
+    if (dir == true) {  //left
+        if ((result + 100) < 0)
+            return posCalc(result + 100, true);
+        else
+            return result + 100;
+    }
+    return 0;
+}
+
 int main(){
-    ifstream MyInputFile("input.txt");
+    ifstream MyInputFile("sample.txt");
 
-    int dialPos = 0;
+    uint dialPos = 50;
 
-    int numZeros = 0;
+    ushort numZeros = 0;
     
     string line;
     while(getline(MyInputFile, line))
@@ -22,19 +39,18 @@ int main(){
         direction = line.substr(0, 1).c_str()[0];
         notch = stoi(line.substr(1));
 
-        if(direction == 'R') {
-            dialPos = (prevPos + notch >= 100) ? (prevPos + notch) - 100 : prevPos + notch;
+        if(direction == 'R') { //right
+            dialPos = (prevPos + notch >= 100) ? posCalc(prevPos + notch, false) : prevPos + notch;
         }
-        else {
-            dialPos = (prevPos - notch < 0) ? (prevPos - notch) + 100 : prevPos - notch;
+        else { //left
+            dialPos = (prevPos - notch < 0) ? posCalc(prevPos - notch, true) : prevPos - notch;
         }
 
         if (dialPos == 0)
         {
             numZeros++;
         }
-
-        cout << "prev pos: " << prevPos << " dir: " << direction << " notchs: " << notch << " new pos: " << dialPos << endl;
+        // cout << "prev pos: " << prevPos << " dir: " << direction << " notchs: " << notch << " new pos: " << dialPos << endl;
     } 
     cout << numZeros << endl;
 }
