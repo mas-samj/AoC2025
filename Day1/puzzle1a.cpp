@@ -3,32 +3,38 @@
 #include <fstream>
 
 using namespace std;
-struct Comb
-{
-    char dir;
-    int notchs;
-};
 
 int main(){
     ifstream MyInputFile("input.txt");
 
-    int inputArray[4762];
+    int dialPos = 0;
+
+    int numZeros = 0;
     
-    int i = 0;
     string line;
     while(getline(MyInputFile, line))
     {
-        string direction;
+        char direction;
         int notch;
 
-        direction = line.substr(0, 1);
+        int prevPos = dialPos;
+
+        direction = line.substr(0, 1).c_str()[0];
         notch = stoi(line.substr(1));
-        i++;
-    }
 
-    cout << i << endl;
+        if(direction == 'R') {
+            dialPos = (prevPos + notch >= 100) ? (prevPos + notch) - 100 : prevPos + notch;
+        }
+        else {
+            dialPos = (prevPos - notch < 0) ? (prevPos - notch) + 100 : prevPos - notch;
+        }
 
-    int pointer = 0;
+        if (dialPos == 0)
+        {
+            numZeros++;
+        }
 
-
+        cout << "prev pos: " << prevPos << " dir: " << direction << " notchs: " << notch << " new pos: " << dialPos << endl;
+    } 
+    cout << numZeros << endl;
 }
