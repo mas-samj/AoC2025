@@ -23,7 +23,7 @@ int posCalc(int result, bool dir, int& zeroPasses)
             return posCalc(result + 100, true, zeroPasses);
         }
         else {
-            return abs(result);
+            return result;
         }
     }
     return 0;
