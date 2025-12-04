@@ -22,7 +22,7 @@ int posCalc(int result, bool dir)
 }
 
 int main(){
-    ifstream MyInputFile("sample.txt");
+    ifstream MyInputFile("input.txt");
 
     uint dialPos = 50;
 
@@ -50,7 +50,7 @@ int main(){
         {
             numZeros++;
         }
-        // cout << "prev pos: " << prevPos << " dir: " << direction << " notchs: " << notch << " new pos: " << dialPos << endl;
+        cout << "prev pos: " << prevPos << " dir: " << direction << " notchs: " << notch << " new pos: " << dialPos << endl;
     } 
     cout << numZeros << endl;
 }
