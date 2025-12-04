@@ -30,7 +30,8 @@ int posCalc(int result, bool dir, int& zeroPasses)
 }
 
 int main(){
-    ifstream MyInputFile("sample.txt");
+    // ifstream MyInputFile("sample.txt");
+    ifstream MyInputFile("input.txt");
 
     int dialPos = 50;
 
@@ -62,7 +63,7 @@ int main(){
             if (prevPos - notch == -100)
                 dialPos = 0;
             else {
-                dialPos = (prevPos - notch < 0 && prevPos != 0) ? posCalc(prevPos - notch, true, numPassZero) : prevPos - notch;
+                dialPos = (prevPos - notch < 0) ? posCalc(prevPos - notch, true, numPassZero) : prevPos - notch;
                 if (dialPos < 0)
                     dialPos += 100;
             }
