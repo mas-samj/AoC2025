@@ -53,12 +53,6 @@ int main(){
             if (prevPos + notch == 100) {
                 dialPos = 0;
             }
-            // else if (prevPos == 0 && notch < 100)
-            //     dialPos = prevPos + notch;
-            // else if ((prevPos + notch) < 200 && (prevPos + notch) > 100) {
-            //     numPassZero++;
-            //     dialPos = (prevPos + notch) - 100;
-            // }
             else {
                 dialPos = (prevPos + notch > 99 ) ? posCalc(prevPos + notch, false, numPassZero) : prevPos + notch;
             }
@@ -67,18 +61,9 @@ int main(){
         else { //left
             if (prevPos - notch == -100)
                 dialPos = 0;
-            // else if (prevPos == 0 && notch < 100) {
-            //     dialPos = prevPos - notch + 100;
-            // }
-            // else if ((prevPos - notch > -100) && (prevPos - notch < 0))
-            // {
-            //     numPassZero++;
-            //     dialPos = (prevPos - notch) + 100;
-            // }
             else {
                 dialPos = (prevPos - notch < 0 && prevPos - notch < -99) ? posCalc(prevPos - notch, true, numPassZero) : prevPos - notch + 100;
             }
-            
         }
 
         if (dialPos == 0)
