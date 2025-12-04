@@ -23,14 +23,14 @@ int posCalc(int result, bool dir, int& zeroPasses)
             return posCalc(result + 100, true, zeroPasses);
         }
         else {
-            return result;
+            return abs(result);
         }
     }
     return 0;
 }
 
 int main(){
-    ifstream MyInputFile("input.txt");
+    ifstream MyInputFile("sample.txt");
 
     int dialPos = 50;
 
@@ -45,7 +45,7 @@ int main(){
 
         int prevPos = dialPos;
 
-        direction = line.substr(0, 1).c_str()[0];
+        direction = line[0];
         notch = stoi(line.substr(1));
 
 
@@ -62,7 +62,9 @@ int main(){
             if (prevPos - notch == -100)
                 dialPos = 0;
             else {
-                dialPos = (prevPos - notch < 0 && prevPos - notch < -99) ? posCalc(prevPos - notch, true, numPassZero) : prevPos - notch + 100;
+                dialPos = (prevPos - notch < 0 && prevPos != 0) ? posCalc(prevPos - notch, true, numPassZero) : prevPos - notch;
+                if (dialPos < 0)
+                    dialPos += 100;
             }
         }
 
