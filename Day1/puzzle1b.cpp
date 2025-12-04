@@ -4,23 +4,33 @@
 
 using namespace std;
 
-int posCalc(int result, bool dir, int& zeroPasses)
+int posCalc(int result, bool dir, bool first, int& zeroPasses)
 {
     if (dir == false) {  //right
         if (result > 99)
         {
             zeroPasses++;
-            return posCalc(result - 100, false, zeroPasses);
+            return posCalc(result - 100, false, false, zeroPasses);
         }
         else {
             return result;
         }    
     }
     if (dir == true) {  //left
-        if (result < 0)
+        
+        if (result < -100)
         {
             zeroPasses++;
-            return posCalc(result + 100, true, zeroPasses);
+            return posCalc(result + 100, true, false, zeroPasses);
+        }
+        else if (result < 0 && result > -100 && !first)
+        {
+            zeroPasses++;
+            return result;
+        }
+        else if (result < 0 && result > -100 && first)
+        {
+            return result;
         }
         else {
             return result;
@@ -55,7 +65,7 @@ int main(){
                 dialPos = 0;
             }
             else {
-                dialPos = (prevPos + notch > 99 ) ? posCalc(prevPos + notch, false, numPassZero) : prevPos + notch;
+                dialPos = (prevPos + notch > 99 ) ? posCalc(prevPos + notch, false, true, numPassZero) : prevPos + notch;
             }
             
         }
@@ -63,7 +73,7 @@ int main(){
             if (prevPos - notch == -100)
                 dialPos = 0;
             else {
-                dialPos = (prevPos - notch < 0) ? posCalc(prevPos - notch, true, numPassZero) : prevPos - notch;
+                dialPos = (prevPos - notch < 0) ? posCalc(prevPos - notch, true, true,  numPassZero) : prevPos - notch;
                 if (dialPos < 0)
                     dialPos += 100;
             }
